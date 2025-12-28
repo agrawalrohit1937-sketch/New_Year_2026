@@ -2,152 +2,208 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>The Verdict 🔮</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Aura Result ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Outfit', sans-serif;
-            background: #111;
+            font-family: 'Quicksand', sans-serif;
+            background: {{ color_bg }};
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            position: relative;
         }
 
-        /* Animated Background */
-        .bg {
+        /* --- BACKGROUND ANIMATIONS (Floating Sparkles) --- */
+        .sparkle {
             position: absolute;
-            width: 100%; height: 100%;
-            background: linear-gradient(125deg, #2c3e50, #000000, #434343);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            z-index: -1;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: floatUp 5s linear infinite;
+            filter: blur(2px);
         }
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
         }
 
-        /* The Card */
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+        /* --- THE CARD --- */
+        .magic-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 2px solid rgba(255, 255, 255, 0.8);
             border-radius: 40px;
-            padding: 50px 40px;
-            width: 90%;
-            max-width: 500px;
+            padding: 40px 30px;
+            width: 85%;
+            max-width: 360px;
             text-align: center;
-            color: white;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+            from { transform: scale(0.8) translateY(50px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
         }
 
-        /* Text Styles */
-        h4 {
+        /* Decoration: Cute Bow or Ribbon effect */
+        .magic-card::before {
+            content: '🎀';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 50px;
+            animation: bounce 3s infinite ease-in-out;
+            z-index: 12;
+        }
+        @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-10px); } }
+
+        /* Typography */
+        .name-tag {
+            font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 3px;
-            font-size: 14px;
-            color: #aaa;
-            margin: 0;
+            color: #888;
+            margin-bottom: 5px;
+            font-weight: 700;
         }
 
-        .verdict {
-            font-size: 42px;
-            font-weight: 900;
-            margin: 20px 0;
-            text-transform: uppercase;
-            background: -webkit-linear-gradient(#fff, #999);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.1;
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 36px;
+            margin: 10px 0;
+            color: {{ text_accent }};
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
         }
 
-        .days-circle {
-            width: 150px;
-            height: 150px;
+        .icon-box {
+            font-size: 60px;
+            margin: 15px 0;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        .message {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-weight: 600;
+            background: rgba(255,255,255,0.5);
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        /* The Magic Circle Counter */
+        .aura-ring {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 30px;
             border-radius: 50%;
-            border: 5px solid {{ color }};
+            border: 6px solid white;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            margin: 0 auto;
-            box-shadow: 0 0 30px {{ color }};
-            animation: glow 2s infinite alternate;
-        }
-
-        @keyframes glow {
-            from { box-shadow: 0 0 10px {{ color }}; }
-            to { box-shadow: 0 0 30px {{ color }}; }
-        }
-
-        .days-num { font-size: 60px; font-weight: 900; line-height: 1; }
-        .days-lbl { font-size: 12px; text-transform: uppercase; opacity: 0.8; }
-
-        .roast-box {
-            background: rgba(0,0,0,0.3);
-            padding: 20px;
-            border-radius: 20px;
-            margin-top: 30px;
-            border-left: 5px solid {{ color }};
-            text-align: left;
-        }
-
-        .roast-text { font-size: 18px; font-style: italic; margin-bottom: 10px; color: #fff; }
-        .tip-text { font-size: 14px; color: #ddd; }
-
-        .btn {
-            display: inline-block;
-            margin-top: 40px;
-            padding: 15px 40px;
-            background: white;
-            color: black;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 900;
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
-        .btn:hover {
-            transform: scale(1.1);
-            background: {{ color }};
+            align-items: center;
+            background: {{ text_accent }};
             color: white;
-            box-shadow: 0 0 20px {{ color }};
+            box-shadow: 0 10px 30px {{ text_accent }}66;
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
+
+        .days-count { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700; line-height: 1; }
+        .days-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; opacity: 0.9; }
+
+        /* Button */
+        .btn-claim {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border-radius: 50px;
+            background: {{ text_accent }};
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px {{ text_accent }}55;
+        }
+        .btn-claim:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px {{ text_accent }}77;
         }
 
     </style>
 </head>
 <body>
-    <div class="bg"></div>
 
-    <div class="card">
-        <h4>AI Analysis Report</h4>
+    <div id="particles"></div>
+
+    <div class="magic-card">
+        <div class="name-tag">Manifesting for {{ name }}</div>
         
-        <div class="verdict" style="color: {{ color }} !important; -webkit-text-fill-color: {{ color }} !important;">
-            {{ verdict }}
+        <div class="icon-box">{{ icon }}</div>
+        
+        <h1>{{ title }}</h1>
+        <div class="message">"{{ msg }}"</div>
+
+        <div class="aura-ring">
+            <span class="days-count" id="counter">0</span>
+            <span class="days-lbl">Days Streak</span>
         </div>
 
-        <div class="days-circle">
-            <div class="days-num">{{ days }}</div>
-            <div class="days-lbl">Days</div>
-        </div>
-
-        <div class="roast-box">
-            <div class="roast-text">"{{ cause }}"</div>
-            <div class="tip-text">💡 <b>Tip:</b> {{ tip }}</div>
-        </div>
-
-        <a href="/" class="btn">Try Again 🔄</a>
+        <a href="/" class="btn-claim">Claim This Energy ✨</a>
     </div>
+
+    <script>
+        // 1. Create Floating Sparkles
+        function createSparkles() {
+            const particleContainer = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                let span = document.createElement('span');
+                span.classList.add('sparkle');
+                span.style.left = Math.random() * 100 + 'vw';
+                span.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                span.style.animationDelay = Math.random() * 2 + 's';
+                particleContainer.appendChild(span);
+            }
+        }
+        createSparkles();
+
+        // 2. Animate the Number Counting Up
+        const counter = document.getElementById('counter');
+        const target = {{ days }};
+        let count = 0;
+        const speed = 2000 / target; // Calculate speed based on final number
+
+        const updateCount = () => {
+            if(count < target) {
+                count++;
+                counter.innerText = count;
+                setTimeout(updateCount, 20); // Fast count
+            } else {
+                counter.innerText = target;
+            }
+        };
+        setTimeout(updateCount, 800); // Start after card pops in
+    </script>
+
 </body>
 </html>
