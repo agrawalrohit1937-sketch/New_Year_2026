@@ -2,255 +2,142 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aura Check 2026 ✨</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Dream Check 2026 ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- 1. THE AESTHETIC BACKGROUND --- */
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Outfit', sans-serif;
-            background-color: #ffdee9;
-            background-image: linear-gradient(0deg, #ffdee9 0%, #b5fffc 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-        }
-
-        /* The Moving Gradient Mesh */
-        .gradient-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #ffd1ff);
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
-            z-index: -1;
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* --- 2. GLASS CARD CONTAINER --- */
-        .glass-container {
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            width: 90%;
-            max-width: 500px;
-            padding: 40px;
-            margin: 50px 0;
-            text-align: center;
-            animation: slideUp 0.8s ease-out;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        /* --- 3. TYPOGRAPHY --- */
-        h1 {
-            color: #fff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            font-size: 32px;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-        }
-        p.subtitle {
-            color: rgba(255,255,255,0.9);
-            font-size: 14px;
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-
-        /* --- 4. FORM ELEMENTS --- */
-        .input-group {
-            text-align: left;
-            margin-bottom: 15px;
-            background: rgba(255, 255, 255, 0.6);
-            padding: 10px 15px;
-            border-radius: 15px;
-            transition: 0.3s;
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        .input-group:hover, .input-group:focus-within {
-            background: rgba(255, 255, 255, 0.95);
-            transform: scale(1.02);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 35px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            text-align: center;
         }
 
-        label {
-            font-size: 11px;
-            font-weight: 700;
-            color: #555;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
+        h1 { color: #555; font-size: 26px; margin-bottom: 5px; font-weight: 700; }
+        p.sub { color: #777; font-size: 14px; margin-bottom: 25px; }
 
-        label i { color: #e73c7e; margin-right: 5px; }
+        .form-group { text-align: left; margin-bottom: 15px; }
+        label { display: block; font-size: 13px; font-weight: 700; color: #666; margin-bottom: 8px; margin-left: 5px; }
 
         input, select {
-            border: none;
-            background: transparent;
             width: 100%;
-            font-family: 'Outfit', sans-serif;
-            font-size: 15px;
-            color: #333;
+            padding: 15px;
+            border: 2px solid white;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.6);
+            font-family: 'Quicksand', sans-serif;
+            font-size: 16px;
+            color: #444;
             outline: none;
-            font-weight: 500;
+            transition: 0.3s;
+            box-sizing: border-box;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
         }
 
-        /* Side by Side Inputs */
-        .row { display: flex; gap: 10px; }
-        .col { flex: 1; }
-
-        /* Range Slider */
-        input[type=range] {
-            height: 6px;
-            background: linear-gradient(to right, #e73c7e, #23a6d5);
-            border-radius: 5px;
-            margin-top: 5px;
-        }
-        
-        .range-value {
-            font-size: 12px;
-            font-weight: bold;
-            color: #e73c7e;
-            float: right;
+        input:focus, select:focus {
+            background: white;
+            border-color: #ff9a9e;
+            box-shadow: 0 0 15px rgba(255, 154, 158, 0.3);
         }
 
-        /* --- 5. BUTTON --- */
+        /* Cute Range Slider */
+        input[type=range] { padding: 0; height: 6px; background: #fff; margin-top: 5px; box-shadow: none; border: none; }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #ff9a9e;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
         button {
             width: 100%;
-            margin-top: 20px;
             padding: 18px;
+            margin-top: 15px;
             border: none;
             border-radius: 50px;
-            background: #fff;
-            color: #e73c7e;
+            background: linear-gradient(to right, #ff9a9e, #fecfef);
+            color: white;
             font-size: 18px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(255, 154, 158, 0.4);
+            transition: 0.3s;
         }
-
-        button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            background: #e73c7e;
-            color: white;
-        }
+        button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255, 154, 158, 0.6); }
 
     </style>
 </head>
 <body>
-
-    <div class="gradient-bg"></div>
-
-    <div class="glass-container">
-        <h1>🔮 Aura Check 2026</h1>
-        <p class="subtitle">Will you slay the year or get cooked? 💅</p>
+    <div class="card">
+        <h1>✨ Manifest 2026</h1>
+        <p class="sub">Let's check your future energy.</p>
         
         <form action="/predict" method="POST">
-            
-            <div class="row">
-                <div class="col input-group">
-                    <label><i class="fas fa-venus-mars"></i> Gender</label>
-                    <select name="gender">
-                        <option value="0">Female 👸</option>
-                        <option value="1">Male 🤴</option>
-                    </select>
-                </div>
-                <div class="col input-group">
-                    <label><i class="fas fa-birthday-cake"></i> Age</label>
-                    <input type="number" name="age" value="20">
-                </div>
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" name="name" placeholder="e.g. Priya" required>
             </div>
 
-            <div class="input-group">
-                <label><i class="fas fa-bullseye"></i> The 2026 Goal</label>
+            <div class="form-group">
+                <label>What are you manifesting?</label>
                 <select name="resolution_type">
-                    <option value="Gym/Fitness">💪 Gym / Fitness</option>
-                    <option value="Healthy Diet">🥗 Healthy Diet / Glow Up</option>
-                    <option value="Quit Smoking">🚭 Quit Smoking / Vaping</option>
-                    <option value="Academic Comeback">📚 Academic Comeback</option>
-                    <option value="Learn Coding">💻 Learn Coding / AI</option>
-                    <option value="Start a Business">🚀 Start a Business</option>
-                    <option value="Save Money">💸 Save Money</option>
-                    <option value="Stop Stalking Ex">🚫 Stop Stalking Ex</option>
-                    <option value="Find a Relationship">❤️ Find a Relationship</option>
-                    <option value="Stop Procrastination">⏳ Stop Procrastination</option>
-                    <option value="Read More Books">📖 Read More Books</option>
+                    <option value="Find a Relationship">💖 True Love</option>
+                    <option value="Gym/Fitness">🩰 Dream Body</option>
+                    <option value="Save Money">💸 Financial Freedom</option>
+                    <option value="Academic Comeback">📚 Academic Success</option>
+                    <option value="Stop Stalking Ex">🕊️ Healing & Moving On</option>
+                    <option value="Start a Business">👜 CEO Life</option>
                 </select>
             </div>
 
-            <div class="input-group">
-                <label><i class="fas fa-heart-broken"></i> Relationship Status</label>
-                <select name="relationship">
-                    <option value="0">Single (Ready to Mingle) 🦅</option>
-                    <option value="1">It's Complicated 😵‍💫</option>
-                    <option value="2">Taken / Committed 🔒</option>
-                </select>
+            <div style="display:flex; gap:10px;">
+                <div class="form-group" style="flex:1"><label>Gender</label><select name="gender"><option value="0">Female</option><option value="1">Male</option></select></div>
+                <div class="form-group" style="flex:1"><label>Age</label><input type="number" name="age" value="20"></div>
             </div>
 
-            <div class="input-group">
-                <label><i class="fas fa-brain"></i> Stress Level <span class="range-value" id="stressVal">5/10</span></label>
-                <input type="range" name="stress" min="1" max="10" value="5" oninput="document.getElementById('stressVal').innerText = this.value + '/10'">
+            <div class="form-group">
+                <label>Willpower (1-10)</label>
+                <input type="range" name="willpower" min="1" max="10" value="5">
             </div>
 
-            <div class="input-group">
-                <label><i class="fas fa-percentage"></i> Attendance <span class="range-value" id="attVal">75%</span></label>
-                <input type="range" name="attendance" min="0" max="100" value="75" oninput="document.getElementById('attVal').innerText = this.value + '%'">
+            <div class="form-group">
+                <label>Social Media (Hrs)</label>
+                <input type="range" name="social_media" min="0" max="12" step="0.5" value="3">
             </div>
 
-            <div class="row">
-                <div class="col input-group">
-                    <label><i class="fas fa-fire"></i> Willpower</label>
-                    <input type="number" name="willpower" placeholder="1-10" required>
-                </div>
-                <div class="col input-group">
-                    <label><i class="fas fa-bed"></i> Laziness</label>
-                    <input type="number" name="laziness" placeholder="1-10" required>
-                </div>
-            </div>
+            <input type="hidden" name="laziness" value="5">
+            <input type="hidden" name="relationship" value="0">
+            <input type="hidden" name="attendance" value="75">
+            <input type="hidden" name="stress" value="5">
+            <input type="hidden" name="friends" value="1">
+            <input type="hidden" name="distance" value="5">
 
-            <div class="input-group">
-                <label><i class="fab fa-instagram"></i> Social Media (Hrs/Day)</label>
-                <input type="number" step="0.5" name="social_media" value="3">
-            </div>
-
-            <div class="input-group">
-                <label><i class="fas fa-users"></i> Friend Circle</label>
-                <select name="friends">
-                    <option value="0">🤡 Toxic / Party Lovers</option>
-                    <option value="1">😐 Normal Humans</option>
-                    <option value="2">😇 Supportive Angels</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label><i class="fas fa-road"></i> Difficulty / Distance</label>
-                <input type="number" name="distance" value="5">
-            </div>
-
-            <button type="submit">Reveal My Destiny ✨</button>
+            <button type="submit">Reveal My Aura ✨</button>
         </form>
     </div>
 </body>
