@@ -3,25 +3,10 @@ import pickle
 import numpy as np
 import os
 import random
-import gspread
-from google.oauth2.service_account import Credentials
 
 app = Flask(__name__)
 
-# --- 1. SETUP GOOGLE SHEETS CONNECTION ---
-scope = ['https://www.googleapis.com/auth/spreadsheets', "https://www.googleapis.com/auth/drive"]
-
-try:
-    # Ensure credentials.json is in the same folder
-    creds = Credentials.from_service_account_file("credentials.json", scopes=scope)
-    client = gspread.authorize(creds)
-    sheet = client.open("Aura_Database").sheet1
-    print("✅ Connected to Google Sheets!")
-except Exception as e:
-    print("⚠️ Google Sheet Connection Failed:", e)
-    sheet = None
-
-# --- 2. LOAD MODEL ---
+# Load Model
 model_path = 'resolution_model.pkl'
 if os.path.exists(model_path):
     with open(model_path, 'rb') as file:
@@ -44,9 +29,8 @@ def home():
 def predict():
     if request.method == 'POST':
         try:
-            # Fetch Inputs
             name = request.form.get('name', 'Bestie')
-            gender = int(request.form['gender'])
+            gender = int(request.form['gender']) # 1 = Male, 0 = Female
             age = int(request.form['age'])
             res_type_str = request.form['resolution_type']
             relationship = int(request.form['relationship'])
@@ -58,7 +42,7 @@ def predict():
             friends = int(request.form['friends'])
             distance = float(request.form['distance'])
 
-            # Prediction Logic
+            # ML Prediction
             if model:
                 res_type_num = resolution_mapping.get(res_type_str, 0)
                 features = np.array([[gender, age, res_type_num, relationship, attendance, stress, willpower, laziness, social_media, friends, distance]])
@@ -69,78 +53,71 @@ def predict():
             
             days = max(5, min(365, days))
 
-            # --- 🎀 FAIRYCORE RESULT LOGIC 🎀 ---
+            # --- 🔮 GENDER SPECIFIC RESULT LOGIC 🔮 ---
+            
+            # Default
             title = "Dreamy Vibes ✨"
             msg = "Your energy is shifting. Good things are coming."
-            color_bg = "linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #a18cd1 100%)"
-            text_accent = "#ff6b6b"
+            color_bg = "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)"
+            text_accent = "#9b59b6"
             icon = "🔮"
 
             # 1. Love & Relationship
             if res_type_str == 'Find a Relationship':
                 if days < 30:
-                    title = "Self-Love Era 🩰"
-                    msg = "You are the prize. Focus on your glow up, not a relationship!"
-                    color_bg = "linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)"
-                    text_accent = "#ff9f43"
-                    icon = "🎀"
+                    title = "Lone Wolf Era 🐺" if gender == 1 else "Self-Love Era 🩰"
+                    msg = "Focus on your empire right now." if gender == 1 else "You are the prize. Focus on your glow up!"
+                    color_bg = "linear-gradient(135deg, #2c3e50 0%, #bdc3c7 100%)" if gender == 1 else "linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)"
+                    text_accent = "#34495e" if gender == 1 else "#ff9f43"
+                    icon = "🔥" if gender == 1 else "🎀"
                 elif days < 90:
-                    title = "Lucky Girl Syndrome 🍀"
-                    msg = "Manifesting a cute text back? The universe says YES."
-                    color_bg = "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)"
-                    text_accent = "#9b59b6"
+                    title = "Lover Boy Arc 🌹" if gender == 1 else "Lucky Girl Syndrome 🍀"
+                    msg = "Someone is crushing on you hard." if gender == 1 else "Manifesting a cute text back? Universe says YES."
+                    color_bg = "linear-gradient(135deg, #16a085 0%, #f4d03f 100%)" if gender == 1 else "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)"
+                    text_accent = "#27ae60" if gender == 1 else "#9b59b6"
                     icon = "💌"
                 else:
-                    title = "Main Character Energy 👑"
-                    msg = "Your aura is pink and glowing. Love is literally around the corner."
-                    color_bg = "linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)"
-                    text_accent = "#00b894"
+                    title = "King Energy 👑" if gender == 1 else "Main Character Energy 👑"
+                    msg = "You attract, you don't chase."
+                    color_bg = "linear-gradient(135deg, #00c6ff 0%, #0072ff 100%)" if gender == 1 else "linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)"
+                    text_accent = "#2980b9" if gender == 1 else "#00b894"
                     icon = "💍"
 
             # 2. Gym / Diet
             elif res_type_str in ['Gym/Fitness', 'Healthy Diet']:
                 if laziness > 6:
-                    title = "Sleeping Beauty 😴"
-                    msg = "Rest is productive too! But try to move your body a little."
-                    color_bg = "linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)"
-                    text_accent = "#6c5ce7"
-                    icon = "🧸"
+                    title = "Rest & Recover 😴"
+                    msg = "Even Kings need sleep." if gender == 1 else "Rest is productive too, Queen."
+                    color_bg = "linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%)" if gender == 1 else "linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)"
+                    text_accent = "#7f8c8d" if gender == 1 else "#6c5ce7"
+                    icon = "💤"
                 else:
-                    title = "Pilates Princess 🧘‍♀️"
-                    msg = "Drinking water, minding my business, and glowing up."
-                    color_bg = "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-                    text_accent = "#0984e3"
-                    icon = "✨"
+                    title = "Beast Mode 🦁" if gender == 1 else "Pilates Princess 🧘‍♀️"
+                    msg = "They ain't ready for your transformation." if gender == 1 else "Drinking water, minding business, glowing up."
+                    color_bg = "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)" if gender == 1 else "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+                    text_accent = "#16a085" if gender == 1 else "#0984e3"
+                    icon = "💪" if gender == 1 else "✨"
 
             # 3. Money / Career
             elif res_type_str in ['Save Money', 'Start a Business', 'Academic Comeback']:
-                title = "That Girl 💅"
-                msg = "Organized, wealthy, and successful. Your vision board is real."
-                color_bg = "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
-                text_accent = "#00b894"
-                icon = "💸"
+                title = "Future Millionaire 💸" if gender == 1 else "That Girl 💅"
+                msg = "Forbes list is calling your name." if gender == 1 else "Organized, wealthy, and successful."
+                color_bg = "linear-gradient(135deg, #f7971e 0%, #ffd200 100%)" if gender == 1 else "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
+                text_accent = "#d35400" if gender == 1 else "#00b894"
+                icon = "🚀" if gender == 1 else "👜"
 
             # 4. Ex / Healing
             elif res_type_str == 'Stop Stalking Ex':
-                title = "Unbothered Queen 💅"
-                msg = "Blocking negativity and attracting peace. You are doing amazing."
-                color_bg = "linear-gradient(to top, #fff1eb 0%, #ace0f9 100%)"
-                text_accent = "#74b9ff"
-                icon = "🕊️"
-
-            # --- 💾 SAVE TO GOOGLE SHEET ---
-            if sheet:
-                try:
-                    # Save: Name, Resolution, Days, Verdict Title
-                    sheet.append_row([name, res_type_str, days, title])
-                    print(f"✅ Saved record for {name}")
-                except Exception as e:
-                    print(f"⚠️ Save Failed: {e}")
+                title = "GigaChad Mindset 🗿" if gender == 1 else "Unbothered Queen 💅"
+                msg = "Focus on the grind, not the past." if gender == 1 else "Blocking negativity and attracting peace."
+                color_bg = "linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)"
+                text_accent = "#34495e" if gender == 1 else "#74b9ff"
+                icon = "🚫"
 
             return render_template('result.html', days=days, name=name, title=title, msg=msg, color_bg=color_bg, text_accent=text_accent, icon=icon)
 
         except Exception as e:
-            return f"Error: {str(e)}"
+            return str(e)
 
 if __name__ == '__main__':
     app.run(debug=True)
