@@ -2,142 +2,178 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Dream Check 2026 ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manifest 2026 ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
     <style>
+        /* --- 🎀 ANIMATED BACKGROUND 🎀 --- */
         body {
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #ffd1ff);
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffd1ff, #a18cd1);
             background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            font-family: 'Quicksand', sans-serif;
-            margin: 0;
-            min-height: 100vh;
+            animation: gradientBG 15s ease infinite;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        /* --- FLOATING BLOBS (Aesthetic Decor) --- */
+        .blob {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            filter: blur(40px);
+            z-index: -1;
+            animation: float 8s infinite ease-in-out;
+        }
+        .blob-1 { width: 300px; height: 300px; top: -50px; left: -100px; background: #ffdde1; }
+        .blob-2 { width: 250px; height: 250px; bottom: -50px; right: -80px; background: #e0c3fc; animation-delay: 2s; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-30px); } 100% { transform: translateY(0px); } }
 
-        .card {
-            background: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            padding: 35px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        /* --- ✨ THE GLASS CARD ✨ --- */
+        .container {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 40px;
+            padding: 3rem 2.5rem;
+            width: 85%;
+            max-width: 380px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.8);
             text-align: center;
+            position: relative;
         }
 
-        h1 { color: #555; font-size: 26px; margin-bottom: 5px; font-weight: 700; }
-        p.sub { color: #777; font-size: 14px; margin-bottom: 25px; }
+        h2 {
+            font-family: 'Pacifico', cursive;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 2px 2px rgba(255,255,255,0.5));
+        }
 
-        .form-group { text-align: left; margin-bottom: 15px; }
-        label { display: block; font-size: 13px; font-weight: 700; color: #666; margin-bottom: 8px; margin-left: 5px; }
-
+        label {
+            color: #636e72;
+            font-weight: 700;
+            margin-top: 20px;
+            display: block;
+            text-align: left;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+        
+        /* --- MODERN INPUTS --- */
         input, select {
             width: 100%;
             padding: 15px;
-            border: 2px solid white;
+            margin-top: 8px;
             border-radius: 20px;
-            background: rgba(255,255,255,0.6);
-            font-family: 'Quicksand', sans-serif;
-            font-size: 16px;
-            color: #444;
-            outline: none;
-            transition: 0.3s;
+            border: 2px solid transparent;
+            background: #fff;
+            color: #2d3436;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
             box-sizing: border-box;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
-
         input:focus, select:focus {
-            background: white;
+            outline: none;
             border-color: #ff9a9e;
-            box-shadow: 0 0 15px rgba(255, 154, 158, 0.3);
+            box-shadow: 0 0 0 4px rgba(255, 154, 158, 0.2);
+            transform: translateY(-2px);
         }
 
-        /* Cute Range Slider */
-        input[type=range] { padding: 0; height: 6px; background: #fff; margin-top: 5px; box-shadow: none; border: none; }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 20px;
-            width: 20px;
-            border-radius: 50%;
-            background: #ff9a9e;
-            cursor: pointer;
-            border: 2px solid white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        /* Cute Sliders */
+        input[type="range"] {
+            margin-top: 15px;
+            accent-color: #ff758c;
+            height: 6px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 10px;
+            padding: 0;
+            box-shadow: none;
         }
 
+        /* --- GLOW BUTTON --- */
         button {
             width: 100%;
             padding: 18px;
-            margin-top: 15px;
+            margin-top: 35px;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
             border: none;
             border-radius: 50px;
-            background: linear-gradient(to right, #ff9a9e, #fecfef);
             color: white;
-            font-size: 18px;
-            font-weight: 700;
+            font-weight: 800;
+            font-size: 1.2rem;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 154, 158, 0.4);
-            transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(255, 117, 140, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            letter-spacing: 1px;
         }
-        button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255, 154, 158, 0.6); }
+        button:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 117, 140, 0.6);
+        }
+        button:active { transform: scale(0.95); }
 
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>✨ Manifest 2026</h1>
-        <p class="sub">Let's check your future energy.</p>
-        
-        <form action="/predict" method="POST">
-            <div class="form-group">
-                <label>Your Name</label>
-                <input type="text" name="name" placeholder="e.g. Priya" required>
-            </div>
+    
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
 
-            <div class="form-group">
-                <label>What are you manifesting?</label>
-                <select name="resolution_type">
-                    <option value="Find a Relationship">💖 True Love</option>
-                    <option value="Gym/Fitness">🩰 Dream Body</option>
-                    <option value="Save Money">💸 Financial Freedom</option>
-                    <option value="Academic Comeback">📚 Academic Success</option>
-                    <option value="Stop Stalking Ex">🕊️ Healing & Moving On</option>
-                    <option value="Start a Business">👜 CEO Life</option>
-                </select>
-            </div>
+    <div class="container">
+        <h2>Manifest 2026 🕯️</h2>
+        <form action="/predict" method="post">
+            
+            <label>Who is checking? (Name)</label>
+            <input type="text" name="name" placeholder="e.g. Aditi" required>
 
-            <div style="display:flex; gap:10px;">
-                <div class="form-group" style="flex:1"><label>Gender</label><select name="gender"><option value="0">Female</option><option value="1">Male</option></select></div>
-                <div class="form-group" style="flex:1"><label>Age</label><input type="number" name="age" value="20"></div>
-            </div>
+            <label>Select Gender</label>
+            <select name="gender">
+                <option value="0">Female (Soft Girl Era) 🎀</option>
+                <option value="1">Male (Cool Vibes) ⚡</option>
+            </select>
 
-            <div class="form-group">
-                <label>Willpower (1-10)</label>
-                <input type="range" name="willpower" min="1" max="10" value="5">
-            </div>
+            <label>What is your Goal?</label>
+            <select name="resolution">
+                <option>Find a Relationship 💘</option>
+                <option>Stop Stalking Ex 🚫</option>
+                <option>Start a Business 💸</option>
+                <option>Academic Comeback 📚</option>
+                <option>Gym/Fitness 💪</option>
+            </select>
 
-            <div class="form-group">
-                <label>Social Media (Hrs)</label>
-                <input type="range" name="social_media" min="0" max="12" step="0.5" value="3">
-            </div>
+            <label>Internal Fire (Willpower) 🔥</label>
+            <input type="range" name="willpower" min="1" max="10" value="7">
 
-            <input type="hidden" name="laziness" value="5">
-            <input type="hidden" name="relationship" value="0">
-            <input type="hidden" name="attendance" value="75">
-            <input type="hidden" name="stress" value="5">
-            <input type="hidden" name="friends" value="1">
-            <input type="hidden" name="distance" value="5">
+            <label>Laziness Level (Be Honest) 🐨</label>
+            <input type="range" name="laziness" min="1" max="10" value="3">
 
-            <button type="submit">Reveal My Aura ✨</button>
+            <label>Social Media (Hrs/Day) 📱</label>
+            <input type="number" name="social_media" step="0.5" placeholder="e.g. 2.5">
+
+            <label>Support System? 🤝</label>
+            <select name="friends_support">
+                <option value="1">Yes, full support ✅</option>
+                <option value="0">No, doing it alone ❌</option>
+            </select>
+
+            <button type="submit">Read My Energy ✨</button>
         </form>
     </div>
 </body>
