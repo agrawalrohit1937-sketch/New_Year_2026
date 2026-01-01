@@ -3,207 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Aura Result ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <title>Your Vibe Result</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;900&family=Pacifico&display=swap" rel="stylesheet">
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Quicksand', sans-serif;
+            font-family: 'Outfit', sans-serif;
             background: {{ color_bg }};
-            height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
             overflow: hidden;
-            position: relative;
-        }
-
-        /* --- BACKGROUND ANIMATIONS (Floating Sparkles) --- */
-        .sparkle {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: floatUp 5s linear infinite;
-            filter: blur(2px);
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
-        }
-
-        /* --- THE CARD --- */
-        .magic-card {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            border-radius: 40px;
-            padding: 40px 30px;
-            width: 85%;
-            max-width: 360px;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        /* --- THE CARD (Adapts to Gender) --- */
+        .card {
+            /* Python se gender aayega: 0=Female (White Card), 1=Male (Dark Card) */
+            background: {% if gender == 0 %} rgba(255, 255, 255, 0.95) {% else %} rgba(15, 23, 42, 0.95) {% endif %};
+            color: {% if gender == 0 %} #333 {% else %} #fff {% endif %};
+            
+            padding: 40px 30px;
+            border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            max-width: 360px;
+            width: 90%;
             position: relative;
             z-index: 10;
-            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: {% if gender == 0 %} 5px solid #fff {% else %} 2px solid #3b82f6 {% endif %};
+            animation: popUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes popIn {
-            from { transform: scale(0.8) translateY(50px); opacity: 0; }
-            to { transform: scale(1) translateY(0); opacity: 1; }
-        }
-
-        /* Decoration: Cute Bow or Ribbon effect */
-        .magic-card::before {
-            content: '🎀';
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 50px;
-            animation: bounce 3s infinite ease-in-out;
-            z-index: 12;
-        }
-        @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-10px); } }
-
-        /* Typography */
-        .name-tag {
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #888;
-            margin-bottom: 5px;
-            font-weight: 700;
+        /* --- SCORE STYLING --- */
+        .score-box {
+            font-family: 'Pacifico', cursive;
+            font-size: 5.5rem;
+            margin: 10px 0;
+            line-height: 1;
+            /* Female: Pink Gradient | Male: Neon Blue */
+            background: {% if gender == 0 %} -webkit-linear-gradient(45deg, #ff758c, #ff7eb3) {% else %} -webkit-linear-gradient(45deg, #2980b9, #6dd5fa) {% endif %};
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 0px rgba(0,0,0,0.1));
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 36px;
+            font-size: 1.8rem;
+            font-weight: 900;
             margin: 10px 0;
-            color: {{ text_accent }};
-            text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
+            line-height: 1.2;
+            text-transform: uppercase;
+            color: {% if gender == 0 %} #ff4757 {% else %} #6dd5fa {% endif %};
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        /* --- TIP BOX --- */
+        .tip-box {
+            background: {% if gender == 0 %} #fff0f5 {% else %} #1e293b {% endif %};
+            border: 2px dashed {% if gender == 0 %} #ff758c {% else %} #3b82f6 {% endif %};
+            color: {% if gender == 0 %} #d63031 {% else %} #a4b0be {% endif %};
+            padding: 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 25px;
         }
 
         .icon-box {
-            font-size: 60px;
-            margin: 15px 0;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-
-        .message {
-            font-size: 16px;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            font-weight: 600;
-            background: rgba(255,255,255,0.5);
-            padding: 15px;
-            border-radius: 15px;
+            font-size: 5rem;
+            display: inline-block;
+            animation: float 3s infinite ease-in-out;
         }
 
-        /* The Magic Circle Counter */
-        .aura-ring {
-            position: relative;
-            width: 130px;
-            height: 130px;
-            margin: 0 auto 30px;
-            border-radius: 50%;
-            border: 6px solid white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: {{ text_accent }};
-            color: white;
-            box-shadow: 0 10px 30px {{ text_accent }}66;
-            animation: float 4s ease-in-out infinite;
-        }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
-
-        .days-count { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700; line-height: 1; }
-        .days-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; opacity: 0.9; }
-
-        /* Button */
-        .btn-claim {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            border-radius: 50px;
-            background: {{ text_accent }};
+        .btn {
+            display: inline-block;
+            padding: 16px 45px;
+            background: {% if gender == 0 %} linear-gradient(to right, #ff758c, #ff7eb3) {% else %} linear-gradient(to right, #243B55, #141E30) {% endif %};
             color: white;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 16px;
-            transition: 0.3s;
-            box-shadow: 0 5px 15px {{ text_accent }}55;
+            font-weight: 800;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
         }
-        .btn-claim:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px {{ text_accent }}77;
+        .btn:hover { transform: scale(1.05); }
+
+        /* Confetti for Girls */
+        {% if gender == 0 %}
+        .confetti {
+            position: absolute; width: 10px; height: 10px; background-color: #fff;
+            animation: fall linear forwards; top: -10vh; z-index: 1;
         }
+        @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+        {% endif %}
+
+        @keyframes popUp { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
 
     </style>
 </head>
 <body>
-
-    <div id="particles"></div>
-
-    <div class="magic-card">
-        <div class="name-tag">Manifesting for {{ name }}</div>
-        
-        <div class="icon-box">{{ icon }}</div>
-        
-        <h1>{{ title }}</h1>
-        <div class="message">"{{ msg }}"</div>
-
-        <div class="aura-ring">
-            <span class="days-count" id="counter">0</span>
-            <span class="days-lbl">Days Streak</span>
-        </div>
-
-        <a href="/" class="btn-claim">Claim This Energy ✨</a>
-    </div>
-
+    
+    {% if gender == 0 %}
     <script>
-        // 1. Create Floating Sparkles
-        function createSparkles() {
-            const particleContainer = document.getElementById('particles');
-            for (let i = 0; i < 20; i++) {
-                let span = document.createElement('span');
-                span.classList.add('sparkle');
-                span.style.left = Math.random() * 100 + 'vw';
-                span.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                span.style.animationDelay = Math.random() * 2 + 's';
-                particleContainer.appendChild(span);
+        function createConfetti() {
+            const colors = ['#ff9a9e', '#fad0c4', '#a18cd1', '#fbc2eb'];
+            for (let i = 0; i < 50; i++) {
+                const c = document.createElement('div');
+                c.classList.add('confetti');
+                c.style.left = Math.random() * 100 + 'vw';
+                c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                c.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                document.body.appendChild(c);
             }
         }
-        createSparkles();
-
-        // 2. Animate the Number Counting Up
-        const counter = document.getElementById('counter');
-        const target = {{ days }};
-        let count = 0;
-        const speed = 2000 / target; // Calculate speed based on final number
-
-        const updateCount = () => {
-            if(count < target) {
-                count++;
-                counter.innerText = count;
-                setTimeout(updateCount, 20); // Fast count
-            } else {
-                counter.innerText = target;
-            }
-        };
-        setTimeout(updateCount, 800); // Start after card pops in
+        window.onload = createConfetti;
     </script>
+    {% endif %}
+
+    <div class="card">
+        <div class="icon-box">{{ icon }}</div>
+        
+        <div class="score-box">{{ score }}%</div>
+        
+        <h1>{{ title }}</h1>
+        <p>“{{ msg }}”</p>
+
+        <div class="tip-box">{{ tip }}</div>
+        
+        <a href="/" class="btn">Claim Energy ✨</a>
+    </div>
 
 </body>
 </html>
